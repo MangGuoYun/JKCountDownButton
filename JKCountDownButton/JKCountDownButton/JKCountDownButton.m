@@ -22,6 +22,7 @@
     NSDate *_startDate;
     
     CountDownChanging _countDownChanging;
+    CountDownChangingAttributedString _countDownChangingAttributedString;
     CountDownFinished _countDownFinished;
     TouchedCountDownButtonHandler _touchedCountDownButtonHandler;
 }
@@ -79,6 +80,14 @@
                 [self setTitle:title forState:UIControlStateDisabled];
             });
         }
+        else if (_countDownChangingAttributedString)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSAttributedString *title = _countDownChangingAttributedString(self,_second);
+                [self setAttributedTitle:title forState:UIControlStateNormal];
+                [self setAttributedTitle:title forState:UIControlStateDisabled];
+            });
+        }
         else
         {
             NSString *title = [NSString stringWithFormat:@"%zd秒",_second];
@@ -121,6 +130,9 @@
 }
 - (void)countDownFinished:(CountDownFinished)countDownFinished{
     _countDownFinished = [countDownFinished copy];
+}
+- (void)countDownChangingAttributedString:(CountDownChangingAttributedString)countDownChangingAttributedString{
+    _countDownChangingAttributedString = countDownChangingAttributedString;
 }
 @end
 
