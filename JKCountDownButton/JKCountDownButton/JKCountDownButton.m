@@ -24,6 +24,7 @@
     CountDownChanging _countDownChanging;
     CountDownChangingAttributedString _countDownChangingAttributedString;
     CountDownFinished _countDownFinished;
+    CountDownFinishedAttributedString _countDownFinishedAttributedString;
     TouchedCountDownButtonHandler _touchedCountDownButtonHandler;
 }
 @end
@@ -114,6 +115,14 @@
                         [self setTitle:title forState:UIControlStateDisabled];
                     });
                 }
+                else if (_countDownFinishedAttributedString)
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSAttributedString *title = _countDownFinishedAttributedString(self,_totalSecond);
+                        [self setAttributedTitle:title forState:UIControlStateNormal];
+                        [self setAttributedTitle:title forState:UIControlStateDisabled];
+                    });
+                }
                 else
                 {
                     [self setTitle:@"重新获取" forState:UIControlStateNormal];
@@ -133,6 +142,9 @@
 }
 - (void)countDownChangingAttributedString:(CountDownChangingAttributedString)countDownChangingAttributedString{
     _countDownChangingAttributedString = countDownChangingAttributedString;
+}
+- (void)countDownFinishedAttributedString:(CountDownFinishedAttributedString)countDownFinishedAttributedString{
+    _countDownFinishedAttributedString = countDownFinishedAttributedString;
 }
 @end
 

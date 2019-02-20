@@ -11,6 +11,7 @@
 typedef NSString* (^CountDownChanging)(JKCountDownButton *countDownButton,NSUInteger second);
 typedef NSAttributedString* (^CountDownChangingAttributedString)(JKCountDownButton *countDownButton,NSUInteger second);
 typedef NSString* (^CountDownFinished)(JKCountDownButton *countDownButton,NSUInteger second);
+typedef NSAttributedString* (^CountDownFinishedAttributedString)(JKCountDownButton *countDownButton,NSUInteger second);
 typedef void (^TouchedCountDownButtonHandler)(JKCountDownButton *countDownButton,NSInteger tag);
 
 @interface JKCountDownButton : UIButton
@@ -23,6 +24,8 @@ typedef void (^TouchedCountDownButtonHandler)(JKCountDownButton *countDownButton
 - (void)countDownChangingAttributedString:(CountDownChangingAttributedString)countDownChangingAttributedString;
 //倒计时结束回调
 - (void)countDownFinished:(CountDownFinished)countDownFinished;
+//倒计时结束回调
+- (void)countDownFinishedAttributedString:(CountDownFinishedAttributedString)countDownFinishedAttributedString;
 ///开始倒计时
 - (void)startCountDownWithSecond:(NSUInteger)second;
 ///停止倒计时
